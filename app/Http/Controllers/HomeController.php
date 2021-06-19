@@ -26,18 +26,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role==1 && \Request::ip()=='127.0.0.1'){
+        if (Auth::user()->role == 1 && \Request::ip() == '127.0.0.1') {
             session(['origin_sesion ' => '127.0.0.1']);
         }
-        $cookie= \Request::session()->all();
+        $cookie = \Request::session()->all();
+
+
         session(['fecha' => Carbon::now()]);
-        
-        if(Carbon::now()->diffInYears($cookie['fecha'])>1){
+        if (isset($cookie['fecha'])) {
+            if (Carbon::now()->diffInYears($cookie['fecha']) > 1) {
                 return view('sesiones');
+            } else {
+                return view('home');
+            }
         }else{
             return view('home');
         }
-       
-       
     }
 }
