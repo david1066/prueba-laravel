@@ -31,7 +31,7 @@ class HomeController extends Controller
         }
         $cookie= \Request::session()->all();
         session(['fecha' => Carbon::now()]);
-       
+        
         if(Carbon::now()->diffInYears($cookie['fecha'])>1){
                 return view('sesiones');
         }else{
